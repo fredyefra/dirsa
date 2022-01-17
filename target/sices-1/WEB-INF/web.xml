@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+
+	<context-param>
+		<param-name>primefaces.THEME</param-name>
+		<param-value>admin</param-value>
+	</context-param>
+
+	<welcome-file-list>
+		<welcome-file>home.xhtml</welcome-file>
+	</welcome-file-list>
+
+	<context-param>
+		<param-name>primefaces.FONT_AWESOME</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+
+	<!-- <filter> <filter-name>AuthenticationFilter</filter-name> <filter-class>org.picketlink.authentication.web.AuthenticationFilter</filter-class> 
+		Configure HTTP BASIC Authentication Scheme <init-param> <param-name>authType</param-name> 
+		<param-value>BASIC</param-value> </init-param> </filter> Defines which URLs 
+		should be protected by this filter <filter-mapping> <filter-name>AuthenticationFilter</filter-name> 
+		<url-pattern>/*</url-pattern> </filter-mapping> -->
+
+
+	<!-- INICIO SPRING LISTENER -->
+	<!-- <listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+		</listener> <listener> <listener-class>org.springframework.security.web.session.HttpSessionEventPublisher</listener-class> 
+		</listener> FIM SPRING LISTENER INICIO SPRING FILTER <filter> <filter-name>springSecurityFilterChain</filter-name> 
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class> 
+		</filter> <filter-mapping> <filter-name>springSecurityFilterChain</filter-name> 
+		<url-pattern>/*</url-pattern> <dispatcher>FORWARD</dispatcher> <dispatcher>REQUEST</dispatcher> 
+		</filter-mapping> FIM SPRING FILTER -->
+
+	<!-- Spring security -->
+
+	<!-- Fim spring security -->
+
+	<!-- You must register this listener to properly initialize your application 
+		as a SAML Service Provider -->
+	<!-- <listener> <listener-class>org.picketlink.identity.federation.web.filters.ServiceProviderContextInitializer</listener-class> 
+		</listener> The SPFilter is responsible for enabling all SAML processing. 
+		<filter> <filter-name>SPFilter</filter-name> <filter-class>org.picketlink.identity.federation.web.filters.SPFilter</filter-class> 
+		</filter> <filter-mapping> <filter-name>SPFilter</filter-name> <url-pattern>/*</url-pattern> 
+		</filter-mapping> -->
+
+	<!-- Mudar para PRODUCAO -->
+	<!-- <context-param>
+		<param-name>javax.faces.PROJECT_STAGE</param-name>
+		<param-value>Production</param-value>
+	</context-param> -->
+
+	<mime-mapping>
+		<extension>xhtml</extension>
+		<mime-type>application/xml</mime-type>
+	</mime-mapping>
+
+	<mime-mapping>
+		<extension>eot</extension>
+		<mime-type>application/vnd.ms-fontobject</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>otf</extension>
+		<mime-type>font/opentype</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>svg</extension>
+		<mime-type>image/svg+xml</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>ttf</extension>
+		<mime-type>application/x-font-ttf</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>woff</extension>
+		<mime-type>application/x-font-woff</mime-type>
+	</mime-mapping>
+	<mime-mapping>
+		<extension>woff2</extension>
+		<mime-type>application/x-font-woff2</mime-type>
+	</mime-mapping>
+
+	<context-param>
+		<param-name>facelets.SKIP_COMMENTS</param-name>
+		<param-value>true</param-value>
+	</context-param>
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.xhtml</url-pattern>
+	</servlet-mapping>
+	<!-- <listener> <listener-class>org.jboss.weld.environment.servlet.Listener</listener-class> 
+		</listener> -->
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<!-- <security-constraint>
+		<display-name>block-access-xhtml</display-name>
+		<web-resource-collection>
+			<web-resource-name>xhtml files</web-resource-name>
+			<url-pattern>*.xhtml</url-pattern>
+		</web-resource-collection>
+		<auth-constraint />
+	</security-constraint> -->
+
+</web-app>

@@ -1,0 +1,68 @@
+<!-- <?xml version="1.0" encoding="UTF-8"?> -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://java.sun.com/jsf/html"
+                template="/admin.xhtml">
+
+    <ui:define name="head">
+       <!--  <h:outputStylesheet library="css" name="showcase.css" />
+        <h:outputStylesheet library="css" name="prism.css"/>
+        <h:outputStylesheet library="css" name="animate.css"/>
+        <h:outputStylesheet library="css" name="ionicons.css"  /> -->
+        
+        <link type="text/css" rel="stylesheet" href="../../resource/css/showcase.css" />
+        <link type="text/css" rel="stylesheet" href="../../resource/css/prism.css" />
+        <link type="text/css" rel="stylesheet" href="../../resource/css/animate.css" />
+        <link type="text/css" rel="stylesheet" href="../../resource/css/ionicons.css" />
+        
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"/>
+        <h:outputStylesheet library="webjars" name="font-awesome/4.7.0/css/font-awesome-jsf.css" /> -->
+        
+        <!-- <link type="text/css" rel="stylesheet"
+		href="#{request.contextPath}/resource/css/animate.css" /> -->
+
+        <!-- <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/icon.png']}"/> -->
+        <!-- <link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" /> -->
+        
+        <title>S i c e s - Página Inicial</title>
+    </ui:define>
+
+    <ui:define name="logo-lg">
+        SICES
+    </ui:define>
+
+    <ui:define name="logo-mini">
+        Admin
+    </ui:define>
+
+    <ui:define name="menu-begin">
+        <ui:include src="/includes/menu-search.xhtml"/>
+    </ui:define>
+
+     <ui:define name="menu">
+         <ui:include src="/includes/menu.xhtml"/>
+     </ui:define>
+
+    <ui:define name="top-menu">
+        <ui:include src="/includes/top-menu.xhtml"/>
+    </ui:define>
+    
+    <ui:define name="content-end">
+        <section class="content">
+            <ui:insert name="code"/>
+        </section>
+    </ui:define>
+
+    <ui:define name="footer">
+        <a target="_blank"
+           href="https://github.com/adminfaces">
+            Todos os direitos reservados - SINF Comgep
+        </a>
+        <div class="pull-right hidden-xs" style="color: gray">
+            <i>#{adm['admin.version']}</i>
+        </div>
+
+        <!-- <h:outputScript library="js" name="prism.js"  target="head"/> -->
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,398 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:aj="http://www.animatejsf.org/animate"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+#boxTable.ui-datatable .ui-datatable-header {
+	text-align: center !important;
+}
+
+.year-spinner input {
+	width: 100px
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	display: none;
+}
+
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Datatable" />
+
+		<aj:animate target="id-Panel" type="fadeInDownBig" />
+
+		<p:panel id="id-Panel" styleClass="box-info text-center"
+			header="CONSULTAR EQUIPAMENTO CARGA">
+
+			<f:view>
+				<f:event listener="#{consultarEquipamentoCargaMB.carregar()}"
+					type="preRenderView" />
+			</f:view>
+
+			<h:form>
+
+				<p:contextMenu for="data-Equipamentos">
+					<p:menuitem value="Movimentação" icon="fa fa-exchange"
+						oncomplete="PF('modal-movimentar').show();"
+						update="form-modal-movimentar" />
+					
+					<p:menuitem value="Manutenção" icon="fa fa-wrench" />
+				    
+				    <p:menuitem value="Edição" icon="fa fa-pencil-square-o"  
+				    oncomplete="PF('modal-editar').show();" update="form-modal-editar" />
+				    
+				</p:contextMenu>
+
+				<p:dataTable id="data-Equipamentos"
+					emptyMessage="NENHUM EQUIPAMENTO CADASTRADO"
+					value="#{consultarEquipamentoCargaMB.equipamentos}" var="equipamento"
+					pageLinks="#{consultarEquipamentoCargaMB.equipamentos.size()}" rows="5"
+					paginator="true" widgetVar="dataTable" paginatorPosition="bottom"
+					selectionMode="single" rowKey="#{equipamento.idEquipamento}"
+					selection="#{consultarEquipamentoCargaMB.equipamento}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+					                   {PreviousPageLink} {PageLinks} 
+					                   {NextPageLink} {LastPageLink} 
+					                   {RowsPerPageDropdown} {Exporters}"
+					rowsPerPageTemplate="5,10,15"
+					rowStyleClass="#{(equipamento.statusEquipamento.dsStatus) eq 'EM OPERAÇÃO' ? 'Closed' : null}"> 
+					<!-- rowStyleClass="#{(equipamento.statusEquipamento.dsStatus) eq 'EM OPERAÇÃO' ? 'Closed' : null}"> -->
+
+					<f:facet name="{Exporters}">
+
+						<h:commandLink>
+							<h:graphicImage value="/resource/images/pdf.png" width="24" />
+							<p:dataExporter type="pdf" target="data-Equipamentos"
+								fileName="equipamentoPDF" pageOnly="true" />
+						</h:commandLink>
+
+						<h:commandLink>
+							<p:graphicImage value="/resource/images/excel.png" width="24" />
+							<p:dataExporter type="xls" target="data-Equipamentos"
+								fileName="equipamentosXLS"
+								postProcessor="#{consultarEquipamentoCargaMB.postProcessXLS}" />
+						</h:commandLink>
+
+					</f:facet>
+
+                    <p:column>
+						<f:facet name="header">
+							<h:outputText value="STATUS" />
+						</f:facet>
+						<h:outputText value="#{equipamento.statusEquipamento.dsStatus}"/>
+					</p:column>
+                    
+                    <p:column>
+						<f:facet name="header">
+							<h:outputText value="OPERADOR" />
+						</f:facet>
+						<h:outputText value="#{equipamento.usuario.nomeGuerra} - {#{equipamento.usuario.postoGraduacao.dsPostoGraduacao}"/>
+					</p:column>
+
+                    <p:column>
+						<f:facet name="header">
+							<h:outputText value="QUANTIDADE" />
+						</f:facet>
+                        <h:outputText 
+                        value="#{equipamento.quantidade}" />
+                   </p:column>
+
+					<p:column filterBy="#{equipamento.nomeEquipamento.dsEquipamento}" headerText="Id"
+						filterMatchMode="startsWith">
+						<f:facet name="header">
+							<h:outputText value="EQUIPAMENTO" />
+						</f:facet>
+						<h:outputText value="#{equipamento.nomeEquipamento.dsEquipamento}"
+							styleClass="text-center" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="MODELO" />
+						</f:facet>
+						<h:outputText value="#{equipamento.tipoEquipamento.dsTipoEquipamento}" />
+					</p:column>
+
+					<p:column sortBy="#{equipamento.custoAnualManutencao}">
+						<f:facet name="header">
+							<h:outputText value="MANUTENÇÃO ANUAL" />
+						</f:facet>
+
+						<h:outputText value="#{equipamento.custoAnualManutencao}">
+							<f:convertNumber type="currency" currencySymbol="R$"
+								locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="DESTINAÇÃO" />
+						</f:facet>
+						<h:outputText value="#{equipamento.especialidade.dsEspecialidade}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="OSA DE ORIGEM" />
+						</f:facet>
+						<h:outputText
+							value="#{equipamento.organizacaoOrigem.dsOsa} - 
+							       #{equipamento.organizacaoOrigem.dsEscalao}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="OSA ATUAL" />
+						</f:facet>
+                        <h:outputText 
+                        value="#{equipamento.organizacaoAtual.dsOsa} - 
+                               #{equipamento.organizacaoAtual.dsEscalao}  " />
+                   </p:column>
+
+                 </p:dataTable>
+
+			</h:form>
+
+			<!-- INICIO DO DIALOG MOVIMENTAR EQUIPAMENTO  -->
+			<h:form id="form-modal-movimentar">
+
+				<p:growl id="growl-mensagem" showDetail="true" sticky="true"
+					life="2" globalOnly="true" autoUpdate="true" />
+
+				<p:dialog id="modal-movimentar" header="Movimentar Equipamento" 
+					draggable="false" resizable="false" responsive="true"
+					widgetVar="modal-movimentar" height="480" width="680"
+					appendToBody="true" showEffect="fade" hideEffect="clip">
+
+					<p:panelGrid columns="2">
+                         
+                        <p:outputLabel value="Status:" /> 
+                        <p:inputText disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.statusEquipamento.dsStatus}"
+							size="50" /> 
+                         
+						<p:outputLabel value="Equipamento:" />
+						<p:inputText disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.nomeEquipamento.dsEquipamento}"
+							size="50" />
+
+						<p:outputLabel value="Modelo:" />
+						<p:inputText disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.tipoEquipamento.dsTipoEquipamento}" size="50" />
+
+						<p:outputLabel value="Nº Serie:" />
+						<p:inputText disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.numeroSerie}"
+							size="50" />
+
+						<p:outputLabel value="Patrimônio:" />
+						<p:inputText disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.numeroPatrimonio}"
+							size="50" />
+
+						<p:outputLabel value="Manutenção Anual:" />
+						<p:inputText value="#{consultarEquipamentoCargaMB.equipamento.custoAnualManutencao}" 
+						disabled="true"
+							size="50" decimalSeparator="," thousandSeparator=".">
+						</p:inputText>
+
+						<p:outputLabel value="OSA de Origem:" />
+						<p:selectOneMenu id="select-osa1" effect="slide" disabled="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.organizacaoOrigem}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..." itemDisabled="true"
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.osasOrigem}" var="origem"  
+								itemLabel="#{origem.dsOsa} - #{origem.dsEscalao}" itemValue="#{origem}" />
+							<p:message for="select-osa1" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="OSA Atual:" />
+						<p:selectOneMenu id="select-osa2" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.organizacaoAtual}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.osasAtual}" var="atual"
+								itemLabel="#{atual.dsOsa} - #{atual.dsEscalao}" itemValue="#{atual}" />
+							<p:message for="select-osa2" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Responsável Movimentação: " />
+						<p:inputText disabled="true"
+							value="#{loginMB.postoGraduacao} - #{loginMB.nomeGuerra}"
+							size="50" />
+
+						<p:outputLabel value="Data de Envio:" />
+						<p:calendar id="data-envio" pattern="dd/MM/yyyy" mask="true" mindate="#{validarDataLimiteBean.dataLimite}"
+						maxdate="#{validarDataLimiteBean.dataLimite}"	value="#{consultarEquipamentoCargaMB.movimentacao.dtEnvio}" size="50" />
+
+					</p:panelGrid>
+
+					<p:separator />
+
+					<p:panelGrid columns="2">
+
+						<p:commandButton value="Salvar"
+							actionListener="#{consultarEquipamentoCargaMB.salvar}"
+							action="/pagina/consultarEquipamento.xhtml"
+							icon="fa fa-file-text-o" ajax="false" 
+							update="form-modal-movimentar" />
+
+						<p:commandButton value="Cancelar" icon="fa fa-times"
+							oncomplete="PF('modal-movimentar').hide();" ajax="true"
+							update="form-modal-movimentar" />
+
+					</p:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+            <!-- FIM DO DIALOG MOVIMENTAR EQUIPAMENTO  -->
+            
+            
+            <!-- INICIO DO DIALOG EDITAR EQUIPAMENTO  -->
+			<h:form id="form-modal-editar">
+
+				<p:growl id="growl-mensagem" showDetail="true" sticky="true"
+					life="2" globalOnly="true" autoUpdate="true" />
+
+				<p:dialog id="modal-editar" header="Editar Equipamento"
+					draggable="false" resizable="false" responsive="true"
+					widgetVar="modal-editar" height="440" width="680"
+					appendToBody="true" showEffect="fade" hideEffect="clip">
+
+					<p:panelGrid columns="2">
+                        
+                        <p:outputLabel value="Status:" />
+                        <p:selectOneMenu id="select-status" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.statusEquipamento}"
+							converter="#{statusEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="startWith" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Status..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.statusEquipamentos}" var="statusEquipamento"
+								itemLabel="#{statusEquipamento.dsStatus}" itemValue="#{statusEquipamento}" />
+							<p:message for="select-status" />
+						</p:selectOneMenu>
+                         
+						<p:outputLabel value="Equipamento:" />
+						<p:selectOneMenu id="select-equipamento" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.nomeEquipamento}"
+							converter="#{nomeEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Equipamento..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.nomeEquipamentos}" var="nomeEquipamento"
+								itemLabel="#{nomeEquipamento.dsEquipamento}" itemValue="#{nomeEquipamento}" />
+							<p:message for="select-equipamento" />
+						</p:selectOneMenu>
+
+                        <p:outputLabel value="Modelo:" />
+						<p:selectOneMenu id="select-tipoEquipamento" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.tipoEquipamento}"
+							converter="#{tipoEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Tipo de Equipamento..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.tipoEquipamentos}" var="tipoEquipamento"
+								itemLabel="#{tipoEquipamento.dsTipoEquipamento}" itemValue="#{tipoEquipamento}" />
+							<p:message for="select-tipoEquipamento" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Número de Serie:" for="id-NumSerie"/>
+						<p:inputText id="id-NumSerie"
+							value="#{consultarEquipamentoCargaMB.equipamento.numeroSerie}" required="true"
+							size="50">
+						<p:message for="id-NumSerie"/>
+						</p:inputText>
+
+						<p:outputLabel value="Patrimônio:" />
+						<p:inputText readonly="false"
+							value="#{consultarEquipamentoCargaMB.equipamento.numeroPatrimonio}"
+							size="50" />
+
+						<p:outputLabel value="Manutenção Anual:" />
+						<p:inputText value="#{consultarEquipamentoCargaMB.equipamento.custoAnualManutencao}" 
+						readonly="false"
+							size="50" decimalSeparator="," thousandSeparator=".">
+						</p:inputText>
+
+						<p:outputLabel value="OSA de Origem:" />
+						<p:selectOneMenu id="select-osa1" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.organizacaoOrigem}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.osasOrigem}" var="origem"
+								itemLabel="#{origem.dsOsa} - #{origem.dsEscalao}" itemValue="#{origem}" />
+							<p:message for="select-osa1" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="OSA Atual:" />
+						<p:selectOneMenu id="select-osa2" effect="slide" required="true"
+							value="#{consultarEquipamentoCargaMB.equipamento.organizacaoAtual}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{consultarEquipamentoCargaMB.osasAtual}" var="atual"
+								itemLabel="#{atual.dsOsa} - #{atual.dsEscalao}" itemValue="#{atual}" />
+							<p:message for="select-osa2" />
+						</p:selectOneMenu>
+
+                    </p:panelGrid>
+
+					<p:separator />
+
+					<p:panelGrid columns="2">
+
+						<p:commandButton value="Salvar"
+							actionListener="#{consultarEquipamentoCargaMB.salvar}"
+							action="/pagina/consultarEquipamento.xhtml"
+							icon="fa fa-file-text-o" ajax="false" 
+							update="form-modal-editar"/>
+
+						<p:commandButton value="Cancelar" icon="fa fa-times"
+							oncomplete="PF('modal-movimentar').hide();" ajax="true"
+							update="form-modal-editar" />
+
+					</p:panelGrid>
+
+				</p:dialog>
+
+			</h:form>
+            <!-- FIM DO DIALOG EDITAR FIM -->
+            
+        </p:panel>
+
+	</ui:define>
+
+</ui:composition>

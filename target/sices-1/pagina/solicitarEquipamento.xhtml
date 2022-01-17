@@ -1,0 +1,124 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Forms" />
+
+		<f:view>
+			<f:event listener="#{solicitacaoEquipamentoMB.carregar()}"
+				type="preRenderView" />
+		</f:view>
+
+		<h:form>
+
+			<p:panel id="id-Panel" styleClass="box-info text-center"
+				header="SOLICITAR EQUIPAMENTO">
+
+				<div class="ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid">
+
+						<p:outputLabel value="Nome do Equipamento:"  for="select-equipamento"/>
+						<p:selectOneMenu id="select-equipamento" effect="slide" required="true" requiredMessage="Campo TESTR"
+							value="#{solicitacaoEquipamentoMB.solicitacaoEquipamento.nomeEquipamento}"
+							converter="#{nomeEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Equipamento..." />
+							<f:selectItems value="#{solicitacaoEquipamentoMB.nomeEquipamentos}" var="nomeEquipamento"
+								itemLabel="#{nomeEquipamento.dsEquipamento}" itemValue="#{nomeEquipamento}"  />
+							<p:message for="select-equipamento" />
+						</p:selectOneMenu>
+                        
+                        <p:outputLabel value="Quantidade:" for="slider-qtd"/>
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                        <p:inputText id="slider-qtd" size="60" value="#{solicitacaoEquipamentoMB.solicitacaoEquipamento.quantidade}" />
+                        <p:slider for="slider-qtd"  />
+                        </h:panelGrid>
+                        
+                        <p:outputLabel value="Nome do Fabricante:" for="select-fabricante" />
+						<p:selectOneMenu id="select-fabricante" effect="slide" required="true" requiredMessage="TESTANDO"
+							value="#{solicitacaoEquipamentoMB.solicitacaoEquipamento.nomeFabricante}"
+							converter="#{nomeFabricanteConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							
+							<f:selectItem itemLabel="Selecione o Fabricante..."  />
+							<f:selectItems value="#{solicitacaoEquipamentoMB.nomeFabricantes}" var="nomeFabricante" 
+								itemLabel="#{nomeFabricante.dsFabricante}" itemValue="#{nomeFabricante}"/>
+							<p:message for="select-fabricante" />
+						</p:selectOneMenu>  
+                        
+                        <p:outputLabel value="Valor Estimado:" />
+                        <p:inputNumber id="input-valor"
+							placeholder="Valor Estimado..." value="#{solicitacaoEquipamentoMB.solicitacaoEquipamento.valorEstimado}"
+							size="60" maxlength="10" required="true"
+							decimalSeparator="," thousandSeparator=".">
+							<p:message for="input-valor" />
+						</p:inputNumber>
+
+					</p:panelGrid>
+
+				</div>
+
+			</p:panel>
+
+			<p:separator />
+
+			<div class="row">
+
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+
+					<div class="btn-group" data-toggle="buttons">
+
+						<p:commandLink id="btn-salvar" value="Salvar"
+							action="#{solicitacaoEquipamentoMB.salvar}" icon="fa fa-floppy-o"
+							styleClass="btn-block btn-success btn-xs" ajax="false" />
+
+						<!-- <p:commandLink id="btn-cancelar" value="Cancelar"
+							action="#{cadastrarEquipamentoMB.salvar}" icon="fa fa-close"
+							styleClass="btn-block btn-danger btn-xs" ajax="false"
+							type="button" /> -->
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

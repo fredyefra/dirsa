@@ -1,0 +1,223 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Forms" />
+
+		<f:view>
+			<f:event listener="#{cadastrarEquipamentoMB.carregar()}"
+				type="preRenderView" />
+		</f:view>
+
+		<h:form>
+
+			<!-- <p:messages/> -->
+
+			<p:panel id="id-Panel" styleClass="box-info text-center"
+				header="CADASTRAR NOVO EQUIPAMENTO">
+
+				<div class="ui-fluid">
+					<p:panelGrid columns="4" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid">
+
+						<p:outputLabel value="Equipamento:" />
+						<p:selectOneMenu id="select-equipamento" effect="slide" required="true" requiredMessage="Campo TESTR"
+							value="#{cadastrarEquipamentoMB.equipamento.nomeEquipamento}"
+							converter="#{nomeEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Equipamento..." />
+							<f:selectItems value="#{cadastrarEquipamentoMB.nomeEquipamentos}" var="nomeEquipamento"
+								itemLabel="#{nomeEquipamento.dsEquipamento}" itemValue="#{nomeEquipamento}"  />
+							<p:message for="select-equipamento" />
+						</p:selectOneMenu>
+
+						<p:outputLabel value="Fabricante:" for="select-fabricante" />
+						<p:selectOneMenu id="select-fabricante" effect="slide" required="true" requiredMessage="TESTANDO"
+							value="#{cadastrarEquipamentoMB.equipamento.nomeFabricante}"
+							converter="#{nomeFabricanteConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							
+							<f:selectItem itemLabel="Selecione o Fabricante..."  />
+							<f:selectItems value="#{cadastrarEquipamentoMB.nomeFabricantes}" var="nomeFabricante" 
+								itemLabel="#{nomeFabricante.dsFabricante}" itemValue="#{nomeFabricante}"/>
+							<p:message for="select-fabricante" />
+						</p:selectOneMenu>
+                        
+                        <p:outputLabel value="Modelo:" />
+						 <p:selectOneMenu id="select-modelo" effect="slide" required="true"
+							value="#{cadastrarEquipamentoMB.equipamento.tipoEquipamento}"
+							converter="#{tipoEquipamentoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Modelo..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarEquipamentoMB.tipoEquipamentos}" var="tipoEquipamento"
+								itemLabel="#{tipoEquipamento.dsTipoEquipamento}" itemValue="#{tipoEquipamento}" />
+							<p:message for="select-modelo" />
+						</p:selectOneMenu>
+                        
+						<p:outputLabel value="Número de Série:" for="id-NumSerie" />
+						<p:inputText id="id-NumSerie"  placeholder="Número de Série..."
+							value="#{cadastrarEquipamentoMB.equipamento.numeroSerie}"
+							required="true"
+							size="60"
+							maxlength="15">
+						<p:message for="id-NumSerie"/>
+						</p:inputText>
+
+						<p:outputLabel value="Patrimônio:" />
+						<p:inputText id="input-patrimonio"
+							placeholder="Número de Patrimônio..."
+							value="#{cadastrarEquipamentoMB.equipamento.numeroPatrimonio}"
+							required="true"
+							size="60" maxlength="15">
+							<p:message for="input-patrimonio" />
+						</p:inputText>
+
+                        <p:outputLabel value="Manutenção Anual:" />
+						<p:inputNumber id="input-custo"
+							placeholder="Custo da Manutenção..."
+							value="#{cadastrarEquipamentoMB.equipamento.custoAnualManutencao}"
+							size="60" maxlength="10" required="true"
+							decimalSeparator="," thousandSeparator=".">
+							<p:message for="input-custo" />
+						</p:inputNumber>
+
+						<p:outputLabel value="Data Inicio Operação:" for="data-inicio" />
+						<p:calendar id="data-inicio" pattern="dd/MM/yyyy" mask="true"   
+							value="#{cadastrarEquipamentoMB.equipamento.dtInicioOperacao}"
+							required="true" requiredMessage="Valor Obrigatório" 
+							size="50" locale ="pt_BR">
+						<p:message for="data-inicio" />
+						</p:calendar>
+                        
+                        <p:outputLabel value="Data Final Vida Útil:" for="data-fim" />
+						<p:calendar id="data-fim" pattern="dd/MM/yyyy" mask="true"
+							value="#{cadastrarEquipamentoMB.equipamento.dtFinalVidaUtil}"
+							required="true" requiredMessage="Valor Obrigatório" 
+							size="50" locale ="pt_BR">
+							<p:message for="data-fim" />
+						</p:calendar>
+                        
+                        <p:outputLabel value="OSA Atual:" />
+						<p:selectOneMenu id="select-osa2" effect="slide" required="true" 
+							value="#{cadastrarEquipamentoMB.equipamento.organizacaoAtual}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarEquipamentoMB.osasAtual}" var="atual"
+								itemLabel="#{atual.dsOsa} -  #{atual.dsEscalao}" itemValue="#{atual}" />
+							<p:message for="select-osa2" />
+						</p:selectOneMenu>
+                        
+                        <p:outputLabel value="OSA de Origem:" />
+						<p:selectOneMenu id="select-osa1" effect="slide" required="true"
+							value="#{cadastrarEquipamentoMB.equipamento.organizacaoOrigem}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarEquipamentoMB.osasOrigem}" var="origem"
+								itemLabel="#{origem.dsOsa} -  #{origem.dsEscalao}" itemValue="#{origem}" />
+							<p:message for="select-osa1" />
+						</p:selectOneMenu>
+                        
+                      <p:outputLabel value="Setor:" />
+						<p:selectOneMenu id="input-especialidade" effect="slide"
+							required="true"
+							value="#{cadastrarEquipamentoMB.equipamento.especialidade}"
+							converter="#{especialidadeConverter}" autoWidth="true"
+							filter="true" filterMatchMode="contains"
+							style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Setor..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarEquipamentoMB.especialidades}" var="especialidade" 
+							itemLabel="#{especialidade.dsEspecialidade}" itemValue="#{especialidade}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Status" />
+						<p:selectOneMenu id="input-status" effect="slide"
+							required="true"
+							value="#{cadastrarEquipamentoMB.equipamento.statusEquipamento}"
+							converter="#{statusEquipamentoConverter}" autoWidth="true"
+							filter="true" filterMatchMode="contains"
+							style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Status..."
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarEquipamentoMB.statusEquipamentos}" var="statusEquipamento" 
+							itemLabel="#{statusEquipamento.dsStatus}" itemValue="#{statusEquipamento}" />
+                        </p:selectOneMenu>
+
+                        <p:outputLabel value="Quantidade:" for="slider-qtd"/>
+                        <h:panelGrid columns="1" style="margin-bottom: 10px">
+                        <p:inputText id="slider-qtd" size="60" value="#{cadastrarEquipamentoMB.equipamento.quantidade}" />
+                        <p:slider for="slider-qtd"  />
+                        </h:panelGrid>
+
+					</p:panelGrid>
+
+				</div>
+
+			</p:panel>
+
+			<p:separator />
+
+			<div class="row">
+
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+
+					<div class="btn-group" data-toggle="buttons">
+
+						<p:commandLink id="btn-salvar" value="Salvar"
+							action="#{cadastrarEquipamentoMB.salvar}" icon="fa fa-floppy-o"
+							styleClass="btn-block btn-success btn-xs" ajax="false" />
+
+						<p:commandLink id="btn-cancelar" value="Cancelar"
+							action="#{loginMB.logOut}" icon="fa fa-close"
+							styleClass="btn-block btn-danger btn-xs" ajax="false"
+						/>
+                    
+                    </div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

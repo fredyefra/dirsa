@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ul class="sidebar-menu">
+
+		<li class="header"><i class="fa fa-cog"></i> . : : E Q U I P A M E N T O : : .</li>
+ 
+           <li><p:link
+				rendered="#{loginMB.perfil == 'COMGEP'}"
+				href="/pagina/equipamento.xhtml">
+				<i class="fa fa-list"></i>
+				<span>Cadastrar Equipamento</span>
+			</p:link></li>
+
+		<li><p:link
+				rendered="#{loginMB.perfil == 'COMGEP'}"
+				href="/pagina/consultarEquipamento.xhtml">
+				<i class="fa fa-search"></i>
+				<span>Consultar Equipamento</span>
+			</p:link></li>
+        
+        <li><p:link 
+				rendered="#{loginMB.perfil == 'COMGEP'}"
+				href="/pagina/consultarSolicitacao.xhtml">
+				<i class="fa fa-search-plus"></i>
+				<span>Consultar Solicitação</span>
+			</p:link></li>
+        
+        <p:panelGrid rendered="#{loginMB.perfil == 'COMGEP'}">
+			<li class="header"><i class="fa fa-user"></i> . : : U S U Á R I O : : .</li>
+			<li><p:link href="/pagina/cadastrarUsuario.xhtml">
+					<i class="fa fa-user"></i>
+					<span>Cadastrar Usuário</span>
+				</p:link></li>
+		</p:panelGrid>
+		
+		<p:panelGrid rendered="#{loginMB.perfil == 'DIRSA'}">
+			<li class="header"><i class="fa fa-user"></i> . : : C O N S U L T A R  S O L I C I T A Ç Õ E S : : .</li>
+			<li><p:link href="/pagina/alterarSolicitacao.xhtml">
+					<i class="fa fa-search"></i>
+					<span>Consultar Solicitações</span>
+				</p:link></li>
+		</p:panelGrid>
+		
+		<li><p:link rendered="#{loginMB.perfil == 'OSA'}" 
+		href="/pagina/solicitarEquipamento.xhtml">
+				<i  class="fa fa-pencil-square-o"></i>
+				<span>Solicitar Equipamento</span>
+		</p:link></li>
+        
+        <li><p:link rendered="#{loginMB.perfil == 'OSA'}" 
+		href="/pagina/materialCarga.xhtml">
+				<i  class="fa fa-list"></i>
+				<span>Cadastrar Material Carga</span>
+		</p:link></li>
+         
+        <li><p:link
+				rendered="#{loginMB.perfil == 'OSA'}"
+				href="/pagina/consultarEquipamentoCarga.xhtml">
+				<i class="fa fa-search"></i>
+				<span>Consultar Material Carga</span>
+			</p:link></li> 
+         
+         
+	</ul>
+</ui:composition>

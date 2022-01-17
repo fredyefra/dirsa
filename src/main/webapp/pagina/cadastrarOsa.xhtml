@@ -1,0 +1,95 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Forms" />
+
+		<f:view>
+			<f:event listener="#{cadastrarEquipamentoMB.carregar()}"
+				type="preRenderView" />
+		</f:view>
+
+		<h:form>
+
+			<!-- <p:messages/> -->
+
+			<p:panel id="id-Panel" styleClass="box-info text-center"
+				header="CADASTRAR ORGANIZAÇÃO DE SAÚDE DA AERONÁUTICA">
+
+				<div class="ui-fluid">
+					<p:panelGrid columns="4"
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid">
+
+						<p:outputLabel value="Nome da OSA:" />
+						<p:inputText id="input-nome" placeholder="Nome da OSA..."/>
+                        
+                        <p:outputLabel value="Sigla da OSA:" />
+						<p:inputText id="input-sigla" placeholder="Sigla da OSA..."/>
+
+					</p:panelGrid>
+
+				</div>
+
+			</p:panel>
+
+			<p:separator />
+
+			<div class="row">
+
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+
+					<div class="btn-group" data-toggle="buttons">
+
+						<p:commandLink id="btn-salvar" value="Salvar"
+							action="#{cadastrarEquipamentoMB.salvar}" icon="fa fa-floppy-o"
+							styleClass="btn-block btn-success btn-xs" ajax="false" />
+
+						<p:commandLink id="btn-cancelar" value="Cancelar"
+							action="#{cadastrarEquipamentoMB.salvar}" icon="fa fa-close"
+							styleClass="btn-block btn-danger btn-xs" ajax="false"
+							type="button" />
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

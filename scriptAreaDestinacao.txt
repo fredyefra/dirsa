@@ -1,0 +1,25 @@
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Angiologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Cardiologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Clínica Geral');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Coloproctologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES (' Dermatologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Endocrinologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Fisiatria');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Fisioterapia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Fonoaudiologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Gastroenterologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Geriatria');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES (' Ginecologia');
+
+INSERT INTO `base_sices`.`tb_especialidade` (`dsEspecialidade`) VALUES ('Hematologia');

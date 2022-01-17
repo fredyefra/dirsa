@@ -1,0 +1,107 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Forms" />
+
+		<!-- <f:view>
+			<f:event listener="#{cadastrarUsuarioMB.carregar()}"
+				type="preRenderView" />
+		</f:view> -->
+
+		<h:form>
+
+        <p:panel id="id-Panel" styleClass="box-info text-center"
+				header="ALTERAR SENHA">
+
+				<div class="ui-fluid">
+
+                        <p:panelGrid columns="2" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid"> 
+						
+						<p:outputLabel for="id-Senha-Atual" value="Senha Atual:" />
+						<p:inputText  id="id-Senha-Atual" value="#{alterarSenhaMB.senha}"  
+						placeholder="Senha Atual..." required="true" type="password" 
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="50">
+							<p:message for="id-Senha-Atual" />
+						</p:inputText>
+						
+						<p:outputLabel for="id-Repita-Senha" value="Repita a Senha Atual:" />
+						<p:inputText id="id-Repita-Senha" value="#{alterarSenhaMB.senha2}"  placeholder="Repita a Senha Atual..."
+							required="true" type="password" 
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="50">
+							<p:message for="id-Repita-Senha" />
+						</p:inputText>
+						
+						<p:outputLabel for="id-Nova-Senha" value="Nova Senha:" />
+						<p:inputText id="id-Nova-Senha" value="#{alterarSenhaMB.novaSenha}" placeholder="Nova Senha..."
+							required="true" type="password" 
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="50">
+							<p:message for="id-Nova-Senha" />
+						</p:inputText>
+						
+						</p:panelGrid>
+
+				</div>
+
+			</p:panel>
+
+			<p:separator />
+
+			<div class="row">
+
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+
+					<div class="btn-group" data-toggle="buttons">
+
+						<p:commandLink id="btn-salvar" value="Alterar"
+							action="#{alterarSenhaMB.pesquisar}" icon="fa fa-floppy-o"
+							styleClass="btn-block btn-success btn-xs" ajax="false" />
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

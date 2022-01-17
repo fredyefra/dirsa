@@ -1,0 +1,193 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:aj="http://www.animatejsf.org/animate"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+#boxTable.ui-datatable .ui-datatable-header {
+	text-align: center !important;
+}
+
+.year-spinner input {
+	width: 100px
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	display: none;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Datatable" />
+
+		<aj:animate target="id-Panel" type="fadeInDownBig" />
+
+		<p:panel id="id-Panel" styleClass="box-info text-center"
+			header="CONSULTAR EQUIPAMENTO(S) SOLICITADOS(S)">
+
+			<f:view>
+				<f:event listener="#{consultarSolicitadosMB.carregar()}"
+					type="preRenderView" />
+			</f:view>
+
+			<h:form id="form">
+
+             <!-- <p:growl id="msgs" showDetail="true"/> --> 
+
+				<p:dataTable id="data-Equipamentos" editable="true"  emptyMessage="NENHUMA SOLICITAÇÃO LOCALIZADA" 
+					value="#{consultarSolicitadosMB.solicitarEquipamentos}" var="solicitado"
+					pageLinks="#{consultarSolicitadosMB.solicitarEquipamentos.size()}" rows="5"
+					paginator="true" widgetVar="dataTable" paginatorPosition="bottom"
+					selectionMode="single" rowKey="#{solicitado.idSolicitacao}"
+					selection="#{consultarSolicitadosMB.solicitado}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+					                   {PreviousPageLink} {PageLinks} 
+					                   {NextPageLink} {LastPageLink} 
+					                       {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+                    
+                    <p:ajax event="rowEdit" update="data-Equipamentos" listener="#{consultarSolicitadosMB.onRowEdit}"  />
+                    <p:ajax event="rowEditCancel" />
+                    
+                    <p:column headerText="Solicitante">
+						<p:cellEditor>
+						 <f:facet name="output"><h:outputText value="#{solicitado.usuario.postoGraduacao.dsPostoGraduacao} - #{solicitado.usuario.nomeGuerra}" /> </f:facet>
+						 <f:facet name="input"><h:inputText value="#{solicitado.usuario.postoGraduacao.dsPostoGraduacao} - #{solicitado.usuario.nomeGuerra}" disabled="false" readonly="true" label="Solicitante" /> </f:facet>
+					    </p:cellEditor>
+					</p:column>
+                    
+                    <p:column  filterBy="#{solicitado.usuario.organizacaoSaudeAeronautica.dsEscalao}"   headerText="OSA"
+                    filterMatchMode="startsWith">
+						<p:cellEditor>
+						 <f:facet name="output"><h:outputText value="#{solicitado.usuario.organizacaoSaudeAeronautica.dsEscalao}" /> </f:facet>
+						 <f:facet name="input"><h:inputText value="#{solicitado.usuario.organizacaoSaudeAeronautica.dsEscalao}" label="OSA" /> </f:facet>
+					    </p:cellEditor>
+					</p:column>
+                    
+                    <p:column filterBy="#{solicitado.nomeEquipamento.dsEquipamento}" headerText="Equipamento"
+                    filterMatchMode="startsWith">
+						<p:cellEditor>
+						 <f:facet name="output"> <h:outputText value="#{solicitado.nomeEquipamento.dsEquipamento}" /> </f:facet>
+						 <f:facet name="input">  
+						 
+						 <p:selectOneMenu id="select-equipamento" effect="slide" disabled="true"
+							value="#{solicitado.nomeEquipamento}"
+							converter="#{nomeEquipamentoConverter}" autoWidth="true" 
+							style="width: 100% !important">
+							
+							<f:selectItems value="#{consultarSolicitadosMB.nomeEquipamentos}" var="nomeEquipamento" 
+								itemLabel="#{nomeEquipamento.dsEquipamento}" itemValue="#{nomeEquipamento}" itemDisabled="true"  />
+							<p:message for="select-equipamento" />
+						</p:selectOneMenu>
+						 
+						</f:facet>
+					    
+					    </p:cellEditor>
+					
+					</p:column>
+
+					<p:column headerText="Fabricante">
+						<p:cellEditor>
+						 <f:facet name="output"> <h:outputText value="#{solicitado.nomeFabricante.dsFabricante}"  /> </f:facet>
+						 <f:facet name="input">  
+						 <p:selectOneMenu id="select-fabricante" effect="slide" disabled="true"
+							value="#{solicitado.nomeFabricante}"
+							converter="#{nomeFabricanteConverter}" autoWidth="true" style="width: 100% !important">
+							
+							<f:selectItems value="#{consultarSolicitadosMB.nomeFabricantes}" var="nomeFabricante" 
+								itemLabel="#{nomeFabricante.dsFabricante}" itemValue="#{nomeFabricante}" itemDisabled="true" />
+							<p:message for="select-fabricante" />
+						</p:selectOneMenu>
+						 
+						 </f:facet>
+					    </p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Quantidade">
+						<p:cellEditor>
+						 <f:facet name="output"><h:outputText value="#{solicitado.quantidade}" /> </f:facet>
+						 <f:facet name="input"><h:inputText value="#{solicitado.quantidade}" label="Quantidade" /> </f:facet>
+					    </p:cellEditor>
+					</p:column>
+
+					<p:column headerText="Valor Estimado">
+						<p:cellEditor >
+						<f:facet name="output"><h:outputText value="#{solicitado.valorEstimado}" /> </f:facet>
+                        <f:facet name="input"> 
+                        
+                        <h:inputText value="#{solicitado.valorEstimado}" label="Valor Estimado"/> 
+                        
+                        </f:facet>
+					    
+					    </p:cellEditor> 
+					</p:column>
+
+					<!-- <p:column>
+						<f:facet name="header">
+							<h:outputText value="Homologado" />
+						</f:facet>
+						<h:outputText value="#{solicitado.homologado}" />	
+					</p:column> -->
+                   
+                   
+                    <p:column headerText="Homologado ?" >
+						<p:cellEditor>
+						<f:facet name="output">	<h:outputText value="#{solicitado.homologado.dsHomologado}" /> </f:facet>
+                        <f:facet name="input">
+                        
+                        <p:selectOneMenu id="select-homologado" effect="slide" 
+							value="#{solicitado.homologado}"
+							converter="#{homologadoConverter}" autoWidth="true" style="width: 100% !important">
+							
+							<f:selectItems value="#{consultarSolicitadosMB.homologados}" var="homologado" 
+								itemLabel="#{homologado.dsHomologado}" itemValue="#{homologado}" />
+							<p:message for="select-homologado" />
+						</p:selectOneMenu>
+                        
+                         </f:facet>
+                       </p:cellEditor>
+                    </p:column>
+                    
+                    <!--  <p:column headerText="Homologado ?" >
+						<p:cellEditor>
+						<f:facet name="output">	<h:outputText value="Homologado" /> </f:facet>
+                        <f:facet name="input"><p:selectBooleanButton id="value1" onLabel="Sim" offLabel="Não" /> </f:facet>
+                       </p:cellEditor>
+                    </p:column> -->
+                    
+                    <p:column headerText="Editar">
+						<p:rowEditor editTitle="Editar as solicitações da OSA"   />
+					</p:column>
+
+				</p:dataTable>
+
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>

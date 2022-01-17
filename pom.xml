@@ -1,0 +1,244 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>br.com.dirsa</groupId>
+	<artifactId>sices</artifactId>
+	<packaging>war</packaging>
+	<!-- <version>0.0.1-SNAPSHOT</version> -->
+	<!-- <name>dirsa Maven Webapp</name> -->
+	<name>sices</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- JSF -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-api</artifactId>
+			<version>2.2.13</version>
+		</dependency>
+
+		<!-- JSF -->
+		<dependency>
+			<groupId>com.sun.faces</groupId>
+			<artifactId>jsf-impl</artifactId>
+			<version>2.2.13</version>
+		</dependency>
+
+		<!-- PrimeFaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.1</version>
+		</dependency>
+
+		<!-- PrimeFaces Themes -->
+		<dependency>  
+          <groupId>org.primefaces.extensions</groupId>
+	      <artifactId>all-themes</artifactId>
+	      <version>1.0.8</version>  
+        </dependency> 
+
+		<!-- ADMIN THEME -->
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-theme</artifactId>
+			<version>1.0.0-RC7</version>
+
+			<exclusions>
+				<exclusion>
+					<groupId>com.github.adminfaces</groupId>
+					<artifactId>admin-theme</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<!-- ADMIN THEME -->
+		<dependency>
+			<groupId>com.github.adminfaces</groupId>
+			<artifactId>admin-template</artifactId>
+			<!-- <version>1.0.0-RC1</version> -->
+			<version>1.0.0-RC7</version>
+			<!-- Update lib <exclusions> <exclusion> <dependency> <groupId>org.omnifaces</groupId> 
+				<artifactId>omnifaces</artifactId> </dependency> </exclusion> </exclusions> -->
+		</dependency>
+
+		<!-- CDI -->
+		<dependency>
+			<groupId>javax.enterprise</groupId>
+			<artifactId>cdi-api</artifactId>
+			<version>1.2</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.picketlink/picketlink-core -->
+		<!-- <dependency> <groupId>org.picketlink</groupId> <artifactId>picketlink-core</artifactId> 
+			<version>2.1.7.Final</version> </dependency> -->
+
+
+		<!-- https://mvnrepository.com/artifact/org.picketlink.idm/picketlink-idm-core -->
+		<!-- <dependency> <groupId>org.picketlink.idm</groupId> <artifactId>picketlink-idm-core</artifactId> 
+			<version>1.4.5.Final</version> </dependency> -->
+
+
+		<!-- https://mvnrepository.com/artifact/org.picketlink/picketlink -->
+		<dependency>
+			<groupId>org.picketlink</groupId>
+			<artifactId>picketlink</artifactId>
+			<version>2.7.0.Final</version>
+		</dependency>
+
+		<!-- Metodos uteis para manipulacao de String, metodos e etc -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/joda-time/joda-time -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.3</version>
+		</dependency>
+
+		<!-- PROVIDER JPA(HIBERNATE) -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.0.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.2.Final</version>
+		</dependency>
+
+		<!-- DEPENDENCIA MYSQL -->
+		<!-- <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.38</version>
+		</dependency> -->
+        <!-- MYSQL Connector -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.46</version>
+			<!-- <scope>provided</scope>-->
+		</dependency>
+
+
+		<!-- usado pelo Weld -->
+		<dependency>
+			<groupId>org.jboss</groupId>
+			<artifactId>jandex</artifactId>
+			<version>1.2.2.Final</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Manipulação de XML -->
+		<dependency>
+			<groupId>jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>1.6.1</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.0.1</version>
+		</dependency>
+
+		<!--VALIDADAR COD INICIO 20/11 -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.2.Final</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator-annotation-processor</artifactId>
+			<version>6.0.2.Final</version>
+		</dependency>
+        <!--VALIDADAR COD FIM 20/11 -->
+
+
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.animatejsf</groupId>
+			<artifactId>animatejsf</artifactId>
+			<version>1.1</version>
+		</dependency>
+
+		<!-- TRATAMENTO DE ARQUIVOS XLS e PDF -->
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.15</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>2.1.7</version>
+		</dependency>
+
+		<!-- DEPENDENCIAS DO SPRING -->
+		<!-- <dependency> <groupId>org.springframework.security</groupId> <artifactId>spring-security-core</artifactId> 
+			<version>3.1.4.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-web</artifactId> <version>3.1.4.RELEASE</version> 
+			</dependency> <dependency> <groupId>org.springframework.security</groupId> 
+			<artifactId>spring-security-config</artifactId> <version>3.1.4.RELEASE</version> 
+			</dependency> -->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<!-- <finalName>sices</finalName> -->
+					<finalName>${project.artifactId}</finalName>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<version>1</version>
+</project>

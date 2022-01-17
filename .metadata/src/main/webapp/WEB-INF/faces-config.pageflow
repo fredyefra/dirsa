@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pageflow:Pageflow xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:pageflow="http://www.sybase.com/suade/pageflow" id="pf16214789678780" configfile="/dirsa/src/main/webapp/WEB-INF/faces-config.xml">
+  <nodes xsi:type="pageflow:PFPage" name="*" x="122" y="370" id="pf16214792484533" outlinks="pf16214792484534 pf162148159964011" path="*"/>
+  <nodes xsi:type="pageflow:PFPage" name="pagina/equipamento.xhtml" x="122" y="946" id="pf16214792484535" referenceLink="//@navigationRule.1/@fromViewId|" outlinks="pf16214792484536" path="/pagina/equipamento.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pagina/consultarEquipamento.xhtml" x="338" y="946" id="pf16214792484537" referenceLink="//@navigationRule.2/@fromViewId|" outlinks="pf16214792484538" inlinks="pf16214792484536" path="/pagina/consultarEquipamento.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pagina/consultarMovimentados.xhtml" x="554" y="946" id="pf16214792484549" referenceLink="//@navigationRule.2/@navigationCase.0/@toViewId|" inlinks="pf16214792484538" path="/pagina/consultarMovimentados.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="pagina/alterarSenha.xhtml" x="338" y="562" id="pf162147924845410" referenceLink="//@navigationRule.3/@navigationCase.0/@toViewId|" inlinks="pf16214792484534" path="/pagina/alterarSenha.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="login.xhtml" id="pf162148159964012" referenceLink="//@navigationRule.1/@navigationCase.0/@toViewId|" outlinks="pf162148159964013" inlinks="pf162148159964011" path="/login.xhtml"/>
+  <nodes xsi:type="pageflow:PFPage" name="home.xhtml" id="pf162148159964014" referenceLink="//@navigationRule.0/@navigationCase.0/@toViewId|" inlinks="pf162148159964013" path="/home.xhtml"/>
+  <links id="pf16214792484536" target="pf16214792484537" source="pf16214792484535" outcome="sucess" fromaction="#{cadastrarEquipamentoMB.salvar}"/>
+  <links id="pf16214792484538" target="pf16214792484549" source="pf16214792484537" outcome="sucess" fromaction="#{consultarEquipamentoMB.salvar}"/>
+  <links id="pf16214792484534" target="pf162147924845410" source="pf16214792484533" outcome="change" redirect="true"/>
+  <links id="pf162148159964013" target="pf162148159964014" source="pf162148159964012" outcome="sucess" redirect="true" fromaction="#{loginMB.login}"/>
+  <links id="pf162148159964011" target="pf162148159964012" source="pf16214792484533" outcome="logoff" redirect="true"/>
+</pageflow:Pageflow>

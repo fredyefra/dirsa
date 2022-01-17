@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <faces-config
+     xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+    version="2.2">
+    
+    <!-- Navegacao Login
+	<navigation-rule>
+		<from-view-id>login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{loginMB.login}</from-action>
+			<from-outcome>home.xhtml?faces-redirect=true</from-outcome>
+			<to-view-id>/pagina/equipamento.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule> -->
+    
+     <application>
+		<!-- <view-handler>com.sun.facelets.FaceletViewHandler</view-handler> -->
+		<locale-config>
+			<default-locale>pt_BR</default-locale>
+			<supported-locale>pt_BR</supported-locale>
+		</locale-config>
+		<message-bundle>messages</message-bundle>
+	</application>
+    
+    Navegacao Login
+	<navigation-rule>
+		<from-view-id>/login.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{loginMB.login}</from-action>
+			 <if>#{loginMB.identidade.loggedIn}</if> 
+			<from-outcome>sucess</from-outcome>
+			<to-view-id>/home.xhtml</to-view-id>
+		    <redirect/>
+		</navigation-case>
+	</navigation-rule> 
+    
+    
+    
+    Navegacao LogOut
+	<navigation-rule>
+		<navigation-case>
+			<!-- <if>#{not loginMB.identidade.loggedIn}</if> -->
+			<from-outcome>logoff</from-outcome>
+			<to-view-id>/login.xhtml</to-view-id>
+		    <redirect/>
+		</navigation-case>
+	</navigation-rule>
+    
+    Navegacao Equipamento
+	<navigation-rule>
+		<from-view-id>/pagina/equipamento.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{cadastrarEquipamentoMB.salvar}</from-action>
+			<from-outcome>sucess</from-outcome>
+			<to-view-id>/pagina/consultarEquipamento.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule> 
+    
+    Navegacao ConsultarEquipamento
+	<navigation-rule>
+		<from-view-id>/pagina/consultarEquipamento.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{consultarEquipamentoMB.salvar}</from-action>
+			<from-outcome>sucess</from-outcome>
+			<to-view-id>/pagina/consultarMovimentados.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+    
+    Navegacao Alterar Senha
+	<navigation-rule>
+		<navigation-case>
+			<!-- <if>#{not loginMB.identidade.loggedIn}</if> -->
+			<from-outcome>change</from-outcome>
+			<to-view-id>/pagina/alterarSenha.xhtml</to-view-id>
+		    <redirect/>
+		</navigation-case>
+	</navigation-rule>
+    
+    
+</faces-config>

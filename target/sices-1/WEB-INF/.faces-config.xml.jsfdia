@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:" SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::0" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="logoff::#login.xhtml" NAME="output"
+    PATH="/login.xhtml" TARGET="rules:#login.xhtml" TITLE="logoff" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="240,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
+   PATH="/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="sucess:#{loginMB.login}:#home.xhtml"
+    NAME="output" PATH="/home.xhtml" TARGET="rules:#home.xhtml"
+    TITLE="#{loginMB.login}:sucess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pagina#equipamento.xhtml"
+  PATH="/pagina/equipamento.xhtml" SHAPE="32,577,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pagina#equipamento.xhtml:0" NAME="item"
+   PATH="/pagina/equipamento.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucess:#{cadastrarEquipamentoMB.salvar}:#pagina#consultarEquipamento.xhtml"
+    NAME="output" PATH="/pagina/consultarEquipamento.xhtml"
+    TARGET="rules:#pagina#consultarEquipamento.xhtml"
+    TITLE="#{cadastrarEquipamentoMB.salvar}:sucess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pagina#consultarEquipamento.xhtml"
+  PATH="/pagina/consultarEquipamento.xhtml" SHAPE="240,817,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#pagina#consultarEquipamento.xhtml:0"
+   NAME="item" PATH="/pagina/consultarEquipamento.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="sucess:#{consultarEquipamentoMB.salvar}:#pagina#consultarMovimentados.xhtml"
+    NAME="output" PATH="/pagina/consultarMovimentados.xhtml"
+    TARGET="rules:#pagina#consultarMovimentados.xhtml"
+    TITLE="#{consultarEquipamentoMB.salvar}:sucess" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pagina#consultarMovimentados.xhtml"
+  PATH="/pagina/consultarMovimentados.xhtml" SHAPE="448,801,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#home.xhtml" PATH="/home.xhtml"
+  SHAPE="448,129,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules::1" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules::1" NAME="item" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="change::#pagina#alterarSenha.xhtml"
+    NAME="output" PATH="/pagina/alterarSenha.xhtml"
+    TARGET="rules:#pagina#alterarSenha.xhtml" TITLE="change" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pagina#alterarSenha.xhtml"
+  PATH="/pagina/alterarSenha.xhtml" SHAPE="240,929,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

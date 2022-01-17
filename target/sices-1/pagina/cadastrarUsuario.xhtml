@@ -1,0 +1,155 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-grid-row .ui-grid-col-2, .ui-grid-row .ui-grid-col-10 {
+	padding: 0.5em 0;
+	margin-left: 10px;
+}
+
+.ui-orderlist .ui-orderlist-list {
+	height: auto;
+}
+
+.ui-orderlist .ui-grid-row .ui-grid-col-2, .ui-orderlist .ui-grid-row .ui-grid-col-10
+	{
+	padding: 0;
+}
+</style>
+
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Forms" />
+
+		<f:view>
+			<f:event listener="#{cadastrarUsuarioMB.carregar()}"
+				type="preRenderView" />
+		</f:view>
+
+		<h:form>
+
+        <p:panel id="id-Panel" styleClass="box-info text-center"
+				header="CADASTRAR NOVO USUÁRIO">
+
+				<div class="ui-fluid">
+
+                        <p:panelGrid columns="4" 
+						columnClasses="ui-grid-col-2,ui-grid-col-4,ui-grid-col-2,ui-grid-col-4"
+						layout="grid" styleClass="ui-fluid"> 
+						
+						<p:outputLabel for="id-Nome-Completo" value="Nome Completo:" />
+						<p:inputText id="id-Nome-Completo" value="#{cadastrarUsuarioMB.usuario.nomeCompleto}"  
+						placeholder="Nome Completo..." required="true"
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="50">
+							<p:message for="id-Nome-Completo" />
+						</p:inputText>
+						
+						<p:outputLabel for="select-posto" value="Posto/Graduação" />
+						<p:selectOneMenu id="select-posto" effect="slide" required="true"
+							value="#{cadastrarUsuarioMB.usuario.postoGraduacao}"
+							converter="#{postoGraduacaoConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Posto/Graduação..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarUsuarioMB.postosGraduacoes}" var="postoGraduacao"
+								itemLabel="#{postoGraduacao.dsPostoGraduacao}" itemValue="#{postoGraduacao}" />
+							<p:message for="select-posto" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="select-perfil" value="Perfil" />
+						<p:selectOneMenu id="select-perfil" effect="slide" required="true"
+							value="#{cadastrarUsuarioMB.usuario.perfil}"
+							converter="#{perfilConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione o Perfil..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarUsuarioMB.perfis}" var="perfil"
+								itemLabel="#{perfil.dsPerfil}" itemValue="#{perfil}" />
+							<p:message for="select-perfil" />
+						<p:ajax update="select-osa" listener="#{cadastrarUsuarioMB.buscarOsaPorPerfil}"/>
+						</p:selectOneMenu>
+						
+						<p:outputLabel value="OSA:" />
+						<p:selectOneMenu id="select-osa" effect="slide" required="true" 
+							value="#{cadastrarUsuarioMB.usuario.organizacaoSaudeAeronautica}"
+							converter="#{osaConverter}" autoWidth="true" filter="true"
+							filterMatchMode="contains" style="width: 100% !important">
+							<f:selectItem itemLabel="Selecione a OSA..." 
+								noSelectionOption="true" />
+							<f:selectItems value="#{cadastrarUsuarioMB.osas}" var="osa"
+								itemLabel="#{osa.dsOsa} -  #{osa.dsEscalao}" itemValue="#{osa}" />
+							<p:message for="select-osa" />
+						</p:selectOneMenu>
+						
+						<p:outputLabel for="id-Nome-Guerra" value="Nome de Guerra:" />
+						<p:inputText id="id-Nome-Guerra" value="#{cadastrarUsuarioMB.usuario.nomeGuerra}"  placeholder="Nome de Guerra..."
+							required="true"
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="15">
+							<p:message for="id-Nome-Guerra" />
+						</p:inputText>
+						
+						<p:outputLabel for="id-Saram" value="Saram:" />
+						<p:inputText id="id-Saram" value="#{cadastrarUsuarioMB.usuario.saram}"   placeholder="Saram..."
+							required="true"
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="7">
+							<p:message for="id-Saram" />
+						</p:inputText>
+						
+						<p:outputLabel for="id-Email" value="Email:" />
+						<p:inputText id="id-Email" value="#{cadastrarUsuarioMB.usuario.email}"  
+						placeholder="Email..." required="true"
+							requiredMessage="Campo Obrigatório" size="60"
+							maxlength="40">
+							<p:message for="id-Email" />
+						</p:inputText>
+						
+						
+						
+						
+						</p:panelGrid>
+
+				</div>
+
+			</p:panel>
+
+			<p:separator />
+
+			<div class="row">
+
+				<div class="col-sm-offset-5 col-sm-2 text-center">
+
+					<div class="btn-group" data-toggle="buttons">
+
+						<p:commandLink id="btn-salvar" value="Salvar"
+							action="#{cadastrarUsuarioMB.salvar}" icon="fa fa-floppy-o"
+							styleClass="btn-block btn-success btn-xs" ajax="false" />
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

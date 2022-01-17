@@ -1,0 +1,161 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:aj="http://www.animatejsf.org/animate"
+	xmlns:adm="http://github.com/adminfaces"
+	template="/WEB-INF/templates/template.xhtml">
+
+	<ui:define name="head-end">
+		<style type="text/css">
+.ui-datatable .ui-datatable-header {
+	text-align: right !important;
+}
+
+#boxTable.ui-datatable .ui-datatable-header {
+	text-align: center !important;
+}
+
+.year-spinner input {
+	width: 100px
+}
+
+.ui-button-text-only .ui-button-text {
+	padding: 0.3em 0.4em;
+}
+
+.ui-selectcheckboxmenu-panel .ui-selectcheckboxmenu-header .ui-chkbox {
+	display: none;
+}
+</style>
+	</ui:define>
+
+	<ui:define name="title">
+        SICES
+    </ui:define>
+
+	<ui:define name="description">
+        Sistema de Controle de Equipamentos
+    </ui:define>
+
+	<ui:define name="body">
+		<adm:breadcrumb title="Datatable" />
+
+		<aj:animate target="id-Panel" type="fadeInDownBig" />
+
+		<p:panel id="id-Panel" styleClass="box-info text-center"
+			header="CONSULTAR EQUIPAMENTO(S) MOVIMENTADO(S)">
+
+			<f:view>
+				<f:event listener="#{movimentacaoMB.carregar()}"
+					type="preRenderView" />
+			</f:view>
+
+			<h:form>
+
+				<!-- <p:contextMenu for="data-Equipamentos">
+					<p:menuitem value="Detalhes" icon="ui-icon-search"
+						oncomplete="PF('modal-movimentar').show();" />
+					<p:menuitem value="Remover" icon="ui-icon-close" />
+				</p:contextMenu> -->
+
+				<p:dataTable id="data-Equipamentos"
+					value="#{movimentacaoMB.movimentados}" var="movimentado"
+					pageLinks="#{movimentacaoMB.movimentados.size()}" rows="5"
+					paginator="true" widgetVar="dataTable" paginatorPosition="bottom"
+					selection="#{movimentacaoMB.movimentacao}"
+					rowKey="#{equipamento.idEquipamento}"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} 
+					                   {PreviousPageLink} {PageLinks} 
+					                   {NextPageLink} {LastPageLink} 
+					                       {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+
+					<p:column filterBy="#{movimentado.equipamento.nomeEquipamento}" headerText="Id"
+						filterMatchMode="contains">
+						<f:facet name="header">
+							<h:outputText value="Equipamento" />
+						</f:facet>
+						<h:outputText value="#{movimentado.equipamento.nomeEquipamento}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Número de Serie" />
+						</f:facet>
+						<h:outputText value="#{movimentado.equipamento.numeroSerie}" />
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="Patrimônio" />
+						</f:facet>
+						<h:outputText value="#{movimentado.equipamento.numeroPatrimonio}" />
+					</p:column>
+
+					<p:column sortBy="#{movimentado.equipamento.custoAnualManutencao}">
+						<f:facet name="header">
+							<h:outputText value="Manutenção Anual " />
+						</f:facet>
+
+						<h:outputText value="#{movimentado.equipamento.custoAnualManutencao}">
+							<f:convertNumber type="currency" currencySymbol="R$"
+								locale="pt_BR" />
+						</h:outputText>
+					</p:column>
+
+					<p:column>
+						<f:facet name="header">
+							<h:outputText value="DESTINAÇÃO" />
+						</f:facet>
+						<h:outputText value="#{movimentado.equipamento.especialidade.dsEspecialidade}" />
+					</p:column>
+
+                    <p:column>
+						<f:facet name="header">
+							<h:outputText value="OSA DE ORIGEM" />
+						</f:facet>
+						<h:outputText
+							value="#{movimentado.organizacaoOrigem.dsOsa}
+							    - #{movimentado.organizacaoOrigem.dsEscalao}" />
+					</p:column>
+
+                    <p:column>
+						<f:facet name="header">
+							<h:outputText value="OSA ATUAL" />
+						</f:facet>
+						<h:outputText
+							value="#{movimentado.organizacaoAtual.dsOsa}
+							    - #{movimentado.organizacaoAtual.dsEscalao}" />
+					</p:column>
+
+					<!-- <p:column>
+
+						<f:facet name="header">
+							<h:outputText value="Ações" />
+						</f:facet>
+
+						<p:commandButton id="button-movimentar"
+							actionListener="#{movimentacaoMB.carregarDetalhamento(equipamento)}"
+							icon="fa fa-exchange" update="form-modal-movimentar" ajax="true" />
+						<p:tooltip id="toolTipGrow" for="button-movimentar"
+							value="Movimentar Equipamento" showEffect="clip"
+							hideEffect="explode" position="top" />
+
+						<p:commandButton id="id-manutencao" icon=" fa fa-wrench"
+							title="Movimentar Equipamento_LINK" type="button" />
+
+						<p:commandButton icon="fa fa-print" title="Imprimir Relatorio" />
+					</p:column> -->
+
+				</p:dataTable>
+
+			</h:form>
+
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>
