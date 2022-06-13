@@ -1,7 +1,7 @@
 # sices - sistema de controle de equipamentos
 -------------------
 
-Simple project using adminfaces layout jsf to control medical equipaments in hospital army.
+simple project using adminfaces layout jsf to control medical equipaments in hospital army.
 
 
 <img src="/img/captura-login.png" alt="My cool logo"/>
