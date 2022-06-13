@@ -27,11 +27,11 @@ public class UsuarioService extends BaseAuthenticator {
     @Override
 	public void authenticate() {
 
-    	Usuario usuario = null;
+    	Usuario usuario = new Usuario();
     	
 		try {
 			     usuario = (Usuario) em
-				.createQuery("SELECT u FROM Usuario u WHERE (u.saram = :saram OR u.senha = :senha)")
+				.createQuery("SELECT u FROM Usuario u WHERE (u.saram = :saram AND u.senha = :senha)")
 				.setParameter("saram", Long.parseLong(loginCredentials.getUserId()))
 				.setParameter("senha", CalcularHashBean.sha256(loginCredentials.getPassword()))
 				.getSingleResult();

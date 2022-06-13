@@ -37,7 +37,7 @@ public class LoginMB implements Serializable {
 		AuthenticationResult result = identidade.login();
 
 		if (AuthenticationResult.FAILED.equals(result)) {
-			messageMB.error("Usuário ou Senha Incorretos!");
+			messageMB.error("Usuï¿½rio ou Senha Incorretos!");
 		}
 		return "sucess";
 	}
@@ -68,42 +68,53 @@ public class LoginMB implements Serializable {
 	}
 
 	public String getPostoGraduacao() {
-
-		if (identidade != null || identidade.getAccount() != null) {
-			return postoGraduacao = (((UserGeneric) identidade.getAccount()).getFirstName());
-		}
-		return null;
+			return postoGraduacao = ((((UserGeneric) identidade.getAccount()).getFirstName()));
 	}
 
-	public String getNomeGuerra() {
-
+	public void setPostoGraduacao(String postoGraduacao) {
 		if (identidade != null || identidade.getAccount() != null) {
-			return nomeGuerra = (((UserGeneric) identidade.getAccount()).getLastName());
+			this.postoGraduacao = postoGraduacao;
 		}
-		return null;
 	}
-
-	public String getPerfil() {
-
-		if (identidade != null || identidade.getAccount() != null) {
-			return perfil = (((UserGeneric) identidade.getAccount()).getLoginName());
-		}
-		return null;
-	}
-
-	public String getUnidadeMilitar() {
-
-		if (identidade != null || identidade.getAccount() != null) {
-			return perfil = (((UserGeneric) identidade.getAccount()).getEmail());
-		}
-		return null;
-	}
-
-	public Usuario getUsuario() {
 	
-		if (identidade != null || identidade.getAccount() != null) {
-			return usuario = (((UserGeneric) identidade.getAccount()).getUsuario());
-		}
-		return null;
+	public String getNomeGuerra() {
+		return nomeGuerra = (((UserGeneric) identidade.getAccount()).getLastName()); 
 	}
+
+	public void setNomeGuerra(String nomeGuerra) {
+		if (identidade != null || identidade.getAccount() != null) {
+			this.nomeGuerra = nomeGuerra;
+		}
+	}
+	
+	public String getPerfil() {
+		return perfil = (((UserGeneric) identidade.getAccount()).getLoginName());
+	}
+
+	public void setPerfil(String perfil) {
+		if (identidade != null || identidade.getAccount() != null) {
+			this.perfil = perfil;
+		}
+	}
+	
+	public String getUnidadeMilitar() {
+		return unidadeMilitar = (((UserGeneric) identidade.getAccount()).getEmail());
+	}
+
+	public void setUnidadeMilitar(String unidadeMilitar) {
+		if (identidade != null || identidade.getAccount() != null) {
+			this.unidadeMilitar = unidadeMilitar;
+		}
+	}	
+	
+	public Usuario getUsuario() {
+		return usuario = ((UserGeneric) identidade.getAccount()).getUsuario();
+	}
+
+	public void setUsuario(Usuario usuario) {
+		if (identidade != null || identidade.getAccount() != null) {
+			this.usuario = usuario;
+		}
+	}
+
 }

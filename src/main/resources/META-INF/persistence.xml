@@ -9,19 +9,15 @@
 		<!-- <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider> -->
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
 
-        <!-- INFORMANDO O DATASOURCE 
-        <jta-data-source>java:jboss/datasources/api-rest-postograduacaoDS</jta-data-source> -->
+        <!-- INFORMANDO O DATASOURCE -->
+        <jta-data-source>java:jboss/datasources/dirsaDS</jta-data-source> 
 
 		<!-- INFORMANDO O DATASOURCE -->
 		<class>br.com.dirsa.model.Equipamento</class>
 		<class>br.com.dirsa.model.OrganizacaoSaudeAeronautica</class>
 		<class>br.com.dirsa.model.Usuario</class>
 		
-		 <!-- <class>br.com.sices.model.Equipamento</class>
-		 <class>br.com.sices.model.OrganizacaoSaudeAeronautica</class> --> 
-
-		<!-- <class>br.com.ciceroednilson.facade.Cliente</class> -->
-
+		 
 		<properties>
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<property name="hibernate.show_sql" value="true" />
